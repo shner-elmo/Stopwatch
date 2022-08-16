@@ -8,16 +8,21 @@ class StopwatchException(Exception):
         return self.message
 
 
-class AlreadyStarted(StopwatchException):
+class AlreadyStartedError(StopwatchException):
     """ Thrown when Stopwatch.start() is called more than once in a row """
     pass
 
 
-class NotStartedYet(StopwatchException):
+class NotStartedYetError(StopwatchException):
     """ Thrown when the Stopwatch is not started yet and the user tries to stop it """
     pass
 
 
-class AlreadyStopped(StopwatchException):
+class AlreadyStoppedError(StopwatchException):
     """ Thrown when Stopwatch.stop() is called more than once in a row """
+    pass
+
+
+class LapError(StopwatchException):
+    """ Thrown when Stopwatch.lap() is called while the stopwatch is paused """
     pass
