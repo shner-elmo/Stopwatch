@@ -2,7 +2,7 @@ from __future__ import annotations
 import time
 
 from enum import Enum
-from typing import TypedDict, List, Dict
+from typing import TypedDict, List, Dict, Callable
 
 from .exceptions import AlreadyStartedError, NotStartedYetError, AlreadyStoppedError, LapError
 
@@ -23,8 +23,8 @@ class Stopwatch:
 
     To start and stop the counter call start() and stop() respectively,
     you can start and stop the same instance multiple times, and at any
-    given moment you can check the total time elapsed the time_elapsed attribute
-    which will return a float.
+    given moment you can check the total elapsed time with the
+    'time_elapsed' attribute which will return a float.
 
     You can also add laps by calling lap() which will add a dictionary containing
     the total elapsed time, and the difference between the current lap and previous lap
@@ -37,23 +37,24 @@ class Stopwatch:
         self._tot_time_elapsed: float = 0
         self.laps: List[Dict] = []
 
-    def start(self) -> None:
+    def start(self) -> float:
         """
-        Start the counter
+        Start the counter and return the current time-stamp (time.perf_counter())
 
-        :return: None
+        :return: float
         """
         if self.status == Status.active:
             raise AlreadyStartedError('Stopwatch already started')
 
         self.status = Status.active
         self._last_time_stamp = time.perf_counter()
+        return time.perf_counter()
 
-    def stop(self) -> None:
+    def stop(self) -> float:
         """
-        Stop the counter
+        Stop the counter and return the current time-stamp (time.perf_counter())
 
-        :return: None
+        :return: float
         """
         if self.status is None:
             raise NotStartedYetError("Cannot stop a Stopwatch that hasn't been started")
@@ -63,6 +64,7 @@ class Stopwatch:
 
         self._tot_time_elapsed += time.perf_counter() - self._last_time_stamp
         self.status = Status.paused
+        return time.perf_counter()
 
     @property
     def time_elapsed(self) -> float:
@@ -151,19 +153,30 @@ class Stopwatch:
         return f"Time elapsed: {self.time_elapsed:.3f}"
 
 
-if __name__ == '__main__':
-    def func(n=10_000_000):
-        return [x for x in range(n)]
+def time_it(stopwatch: Stopwatch = None):
+    """
+    A decorator for getting the time taken to execute a function/method
 
-    sw = Stopwatch()
+    If an instance of Stopwatch is passed it will add the time taken to run
+    the code to the instance, and return: (time_elapsed, return_val)
+    If no instance is passed, it will just return: (time_elapsed, return_val)
 
-    with sw:
-        func(1_000_000)
+    :param stopwatch: instance of Stopwatch, optional
+    :return:
+    """
+    def decorator(func: Callable):
+        def wrapper(*args, **kwargs):
 
-    print(sw.time_elapsed)
+            if stopwatch is not None:
+                start = stopwatch.start()
+                rv = func(*args, **kwargs)
+                stop = stopwatch.stop()
+                return stop - start, rv
+            else:
+                s = Stopwatch()
+                s.start()
+                rv = func(*args, **kwargs)
+                return s.time_elapsed, rv
 
-    with sw:
-        func(5_000_000)
-
-    print(sw.time_elapsed)
-
+        return wrapper
+    return decorator

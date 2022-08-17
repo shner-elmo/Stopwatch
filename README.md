@@ -76,3 +76,50 @@ print(sw.time_elapsed)
 ```
 '2.9421735999640077'
 ```
+
+#### You can also use the decorator to time a function every time you run it
+
+First import the decorator:
+```python
+from src.stopwatch import time_it
+```
+
+Add it to your function:
+```python
+@time_it()
+def func():
+    x = ''
+    for i in range(1_000_000):
+        x += str(i)
+```
+
+Now it will return a tuple with the time taken and the output of the function (which in our case is None)
+```python
+print(func())
+```
+```
+(1.1367347000050358, None)
+```
+
+You can also add the time take to an existing instance of Stopwatch like so:
+```python
+sw = Stopwatch()
+
+@time_it(stopwatch=sw)
+def func():
+    x = ''
+    for i in range(1_000_000):
+        x += str(i)
+```
+```python
+print('Out:', func())
+print('Total time elapsed:', sw.time_elapsed)
+print('Out:', func())
+print('Total time elapsed:', sw.time_elapsed)
+```
+```
+Out: (1.3642582000466064, None)
+Total time elapsed: 1.3642542000161484
+Out: (1.3336866000317968, None)
+Total time elapsed: 2.6979382000281475
+```
