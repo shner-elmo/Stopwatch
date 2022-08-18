@@ -105,12 +105,13 @@ class Stopwatch:
         """
         self.__init__()
 
-    def __enter__(self) -> None:
+    def __enter__(self) -> Stopwatch:
         """
 
         :return:
         """
         self.start()
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:
         """
