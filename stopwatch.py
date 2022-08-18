@@ -4,7 +4,7 @@ import time
 from enum import Enum
 from typing import TypedDict, List, Dict, Callable
 
-from .exceptions import AlreadyStartedError, NotStartedYetError, AlreadyStoppedError, LapError
+from exceptions import AlreadyStartedError, NotStartedYetError, AlreadyStoppedError, LapError
 
 
 class StopwatchLapDict(TypedDict):
