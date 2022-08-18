@@ -1,6 +1,6 @@
 # Python Stopwatch
 
-This module contains a class and function to time your code easily  
+#### This module contains a class and a function to time your code easily  
 Below are some examples:
 ---
 
