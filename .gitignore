@@ -4,3 +4,6 @@ tests
 build/
 stopwatch.egg-info/
 stopwatch/
+LICENSE
+pyproject.toml
+setup.cfg
