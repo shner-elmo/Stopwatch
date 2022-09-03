@@ -3,3 +3,4 @@ __pycache__/
 tests
 build/
 stopwatch.egg-info/
+stopwatch/
