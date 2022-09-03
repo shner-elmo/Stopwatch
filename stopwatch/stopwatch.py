@@ -4,7 +4,7 @@ import time
 from enum import Enum
 from typing import TypedDict, List, Dict, Callable
 
-from exceptions import AlreadyStartedError, NotStartedYetError, AlreadyStoppedError, LapError
+from .exceptions import AlreadyStartedError, NotStartedYetError, AlreadyStoppedError, LapError
 
 
 class StopwatchLapDict(TypedDict):
@@ -147,11 +147,11 @@ class Stopwatch:
 
     def __str__(self) -> str:
         """ Return a nicely formatted string with the total time elapsed """
-        return f"Time elapsed: {self.time_elapsed:.3f}"
+        return f"Time elapsed: {self.time_elapsed:.3f} Seconds"
 
     def __repr__(self) -> str:
         """ Return a nicely formatted string with the total time elapsed """
-        return f"Time elapsed: {self.time_elapsed:.3f}"
+        return f"Time elapsed: {self.time_elapsed:.3f} Seconds"
 
 
 def time_it(stopwatch: Stopwatch = None):

@@ -1,3 +1,5 @@
 __pycache__/
 .idea/
 tests
+build/
+stopwatch.egg-info/
