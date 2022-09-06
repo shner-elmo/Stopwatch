@@ -39,7 +39,7 @@ class Stopwatch:
 
     def start(self) -> float:
         """
-        Start the counter and return the current time-stamp (time.perf_counter())
+        Start the counter and return the current time stamp (time.perf_counter())
 
         :return: float
         """
@@ -52,7 +52,7 @@ class Stopwatch:
 
     def stop(self) -> float:
         """
-        Stop the counter and return the current time-stamp (time.perf_counter())
+        Stop the counter and return the current time stamp (time.perf_counter())
 
         :return: float
         """
@@ -147,11 +147,11 @@ class Stopwatch:
 
     def __str__(self) -> str:
         """ Return a nicely formatted string with the total time elapsed """
-        return f"Time elapsed: {self.time_elapsed:.3f} Seconds"
+        return f"Time elapsed: {self.time_elapsed:.3f}"
 
     def __repr__(self) -> str:
         """ Return a nicely formatted string with the total time elapsed """
-        return f"Time elapsed: {self.time_elapsed:.3f} Seconds"
+        return f"Time elapsed: {self.time_elapsed:.3f}"
 
 
 def time_it(stopwatch: Stopwatch = None):

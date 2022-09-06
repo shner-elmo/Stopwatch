@@ -1,7 +1,9 @@
 # Python Stopwatch
 
-#### This module contains a class and a function to time your code easily  
+#### This module contains a Stopwatch class with a context manager and a decorator function to time your code easily  
+
 Below are some examples:
+
 ---
 
 First import the Stopwatch class
@@ -9,7 +11,7 @@ First import the Stopwatch class
 from stopwatch import Stopwatch
 ```
 
-For the purpose of the tutorial were going to use this function which takes about 1.5 seconds to run
+For the tutorial we're going to use this function which takes a bit more than a second to run
 ```python
 def func():
     x = ''
@@ -17,26 +19,40 @@ def func():
         x += str(i)
 ```
 
-Using the with statement:
-```py
-with Stopwatch() as sw:
-    func()
-    print(sw.time_elapsed)
+Instantiate the Stopwatch class:
+```python
+sw = Stopwatch()
+
+sw.start()
+func()
+sw.stop()
+
+print('Time elapsed:', sw.time_elapsed)
 ```
 ```
-1.4438485999708064
+Time elapsed: 1.2138440999988234
 ```
 
-Or you can print the instance itself, which will return a nicely formatted string:
+Or we can simply print the instance which will return a nicely formatted string:
 ```python
 print(sw)
 ```
 ```
-Time elapsed: 1.444
+Time elapsed: 1.214
 ```
 ---
 
-You can also a pass an instance of a class to automatically add the time taken to the total elapsed time of the insatnce: 
+Using the 'with' statement:
+```py
+with Stopwatch() as sw:
+    func()
+    print(sw)
+```
+```
+Time elapsed: 1.138
+```
+
+You can also pass an instance of a class to automatically add the time taken to the total elapsed time of the instance: 
 ```python
 sw = Stopwatch()
 
@@ -47,13 +63,12 @@ func()
 
 with sw:
     func()
-    
+
 print(sw)
 ```
 ```
-'2.7854167000041343'
+Time elapsed: 2.328
 ```
----
 
 The above example is the equivalent of:
 ```python
@@ -72,9 +87,11 @@ sw.stop()
 print(sw)
 ```
 ```
-'2.9421735999640077'
+Time elapsed: 2.324
 ```
 ---
+
+
 
 #### You can also use the decorator to time a function every time you run it
 
@@ -92,15 +109,15 @@ def func():
         x += str(i)
 ```
 
-Now it will return a tuple with the time taken and the output of the function (which in our case is None)
+Now the function will return a tuple with the time taken and the output of the function (which in our case is None)
 ```python
 print(func())
 ```
 ```
-(1.1367347000050358, None)
+(1.1769665000028908, None)
 ```
 
-You can also add the time taken to an existing instance of Stopwatch like so:
+You can also add the time taken to an existing Stopwatch instance like so:
 ```python
 sw = Stopwatch()
 
@@ -114,13 +131,13 @@ def func():
 Call the function twice:
 ```python
 print('Out:', func())
-print('Total time elapsed:', sw.time_elapsed)
+print(sw)
 print('Out:', func())
-print('Total time elapsed:', sw.time_elapsed)
+print(sw)
 ```
 ```
-Out: (1.3642582000466064, None)
-Total time elapsed: 1.3642542000161484
-Out: (1.3336866000317968, None)
-Total time elapsed: 2.6979382000281475
+Out: (1.2755557999989833, None)
+Time elapsed: 1.276
+Out: (1.3011283000014373, None)
+Time elapsed: 2.577
 ```
