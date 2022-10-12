@@ -1,6 +1,6 @@
 # Python Stopwatch
 
-#### This module contains a Stopwatch class with a context manager and a decorator function to time your code easily  
+#### This module contains a Stopwatch class with a context manager and a decorator function to easily time your code  
 
 Below are some examples:
 
@@ -11,7 +11,7 @@ pip install ez-stopwatch
 
 ---
 
-First import the Stopwatch class
+Import the Stopwatch class
 ```py
 from stopwatch import Stopwatch
 ```
