@@ -4,6 +4,11 @@
 
 Below are some examples:
 
+First install the package:
+```py
+pip install ez-stopwatch
+```
+
 ---
 
 First import the Stopwatch class
